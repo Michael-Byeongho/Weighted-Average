@@ -53,10 +53,10 @@ with main_col2:
 
     res_col1, res_col2 = st.columns(2)
     with res_col1:
-        st.metric("페이퍼 블렌딩 중량/Weight of Paper blended", f"{total_mass:.1f} 톤/MT")
+        st.metric("페이퍼 블렌딩 중량/Weight of paper blend", f"{total_mass:.1f} MT")
     with res_col2:
         st.metric(
-            f"페이퍼 블렌딩 결과/Result of paper blend({unit})", 
+            f"페이퍼 블렌딩 Assay 결과/Assay result of paper blend({unit})", 
             f"{actual_mixed_val:.3f}", 
             delta=f"{diff:.3f} (목표대비 compared to the target)", 
             delta_color=d_color

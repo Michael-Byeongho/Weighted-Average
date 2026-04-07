@@ -29,7 +29,7 @@ with main_col1:
     with c3:
         a_mass = st.number_input("➕ 추가 중량 (톤)/Additional Tonnage(MT)", value=30.0, step=1.0)
     with c4:
-        a_val_input = st.number_input(f"➕ 추가 성분 함량/Additional Current Assays ({unit})", value=0.10, step=0.01)
+        a_val_input = st.number_input(f"➕ 추가 성분 함량/Additional Assays ({unit})", value=0.10, step=0.01)
     
     t_val = st.number_input(f"🎯 목표 함량/Target Assay ({unit})", value=0.4, step=0.01)
 

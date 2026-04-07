@@ -4,17 +4,17 @@ import pandas as pd
 # 페이지 설정을 wide로 하면 더 넓게 쓸 수 있습니다.
 st.set_page_config(layout="wide", page_title="가중평균 시뮬레이터")
 
-st.title("⚖️ 가중평균 목표값 계산기")
+st.title("⚖️ 가중평균 목표값 계산기/Weighted Average Target Calculator")
 
 # 메인 화면을 두 개의 큰 열로 분할
 main_col1, main_col2 = st.columns([1, 1.2], gap="large")
 
 # --- 왼쪽: 입력 섹션 ---
 with main_col1:
-    st.subheader("📋 화물 상세내용 입력")
-    unit = st.selectbox("사용 단위 선택", ["%", "g/mt", "ppm"])
+    st.subheader("📋 화물 상세내용 입력/Cargo Details")
+    unit = st.selectbox("사용 단위 선택/Select the units", ["%", "g/mt", "ppm"])
     is_upper_limit = st.checkbox(
-    "패널티를 계산하나요? ", 
+    "패널티를 계산하나요?/Is this for Penalty Calculation? ", 
     value=False, 
     help="체크하면 비소 등 페널티를 계산(낮을수록 좋은) 하며, \n 체크하지 않을 시 높을수록 좋은 결과가 나오도록 계산합니다(구리/금/은 등)"
 )    
@@ -22,18 +22,18 @@ with main_col1:
     st.write("**[현재 상태]**")
     c1, c2 = st.columns(2)
     with c1:
-        c_mass = st.number_input("📍 현재 중량 (톤)", value=100.0, step=1.0)
+        c_mass = st.number_input("📍 현재 중량 (톤)/Current Tonnage(MT)", value=100.0, step=1.0)
     with c2:
-        c_val = st.number_input(f"📍 현재 성분 함량 ({unit})", value=2.5, step=0.01)
+        c_val = st.number_input(f"📍 현재 성분 함량//Current Assays ({unit})", value=2.5, step=0.01)
 
     st.write("**[추가 계획 및 목표]**")
     c3, c4 = st.columns(2)
     with c3:
-        a_mass = st.number_input("➕ 추가 중량 (톤)", value=30.0, step=1.0)
+        a_mass = st.number_input("➕ 추가 중량 (톤)/Additional Tonnage(MT)", value=30.0, step=1.0)
     with c4:
-        a_val_input = st.number_input(f"➕ 추가 성분 함량 ({unit})", value=0.10, step=0.01)
+        a_val_input = st.number_input(f"➕ 추가 성분 함량/Additional Current Assays ({unit})", value=0.10, step=0.01)
     
-    t_val = st.number_input(f"🎯 목표 함량 ({unit})", value=0.4, step=0.01)
+    t_val = st.number_input(f"🎯 목표 함량/Target Assay ({unit})", value=0.4, step=0.01)
 
 # --- 계산 로직 ---
 total_mass = c_mass + a_mass
@@ -42,7 +42,7 @@ required_a_val = (t_val * total_mass - (c_mass * c_val)) / a_mass
 
 # --- 오른쪽: 결과 섹션 ---
 with main_col2:
-    st.subheader("📊 계산 및 분석 결과")
+    st.subheader("📊 계산 및 분석 결과/Calculation & Analysis Results")
     
     # [오류 방지] 계산에 필요한 변수들 다시 한번 체크 (계산 로직에서 정의되어 있어야 함)
     diff = actual_mixed_val - t_val
@@ -55,12 +55,12 @@ with main_col2:
 
     res_col1, res_col2 = st.columns(2)
     with res_col1:
-        st.metric("페이퍼 블렌딩 중량", f"{total_mass:.1f} 톤")
+        st.metric("페이퍼 블렌딩 중량/Weight of Paper blended", f"{total_mass:.1f} 톤/MT")
     with res_col2:
         st.metric(
-            f"페이퍼 블렌딩 결과 ({unit})", 
+            f"페이퍼 블렌딩 결과/Result of paper blend({unit})", 
             f"{actual_mixed_val:.3f}", 
-            delta=f"{diff:.3f} (목표대비)", 
+            delta=f"{diff:.3f} (목표대비 compared to the target)", 
             delta_color=d_color
         )
 

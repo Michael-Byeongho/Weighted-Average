@@ -19,14 +19,12 @@ with main_col1:
     help="체크하면 비소 등 페널티를 계산(낮을수록 좋은) 하며, \n 체크하지 않을 시 높을수록 좋은 결과가 나오도록 계산합니다(구리/금/은 등)"
 )    
     
-    st.write("**[현재 상태]**")
     c1, c2 = st.columns(2)
     with c1:
         c_mass = st.number_input("📍 현재 중량 (톤)/Current Tonnage(MT)", value=100.0, step=1.0)
     with c2:
         c_val = st.number_input(f"📍 현재 성분 함량//Current Assays ({unit})", value=2.5, step=0.01)
 
-    st.write("**[추가 계획 및 목표]**")
     c3, c4 = st.columns(2)
     with c3:
         a_mass = st.number_input("➕ 추가 중량 (톤)/Additional Tonnage(MT)", value=30.0, step=1.0)
